@@ -18,7 +18,10 @@ Options:
     (may be replaced with columnData)
 */
 
-class Table extends Element {
+import P5UI from '../core/main.js';
+import Element from '../core/element.js';
+
+P5UI.Table = class Table extends Element {
     constructor(options = {}) {
         super(options, 'table');
 
@@ -43,7 +46,7 @@ class Table extends Element {
                 barWidth: this.scrollBarWidth
             };
 
-            this.scrollBar = new ScrollBar(this.height, this.maxRows, 'rows', 'displayStart', options);
+            this.scrollBar = new P5UI.ScrollBar(this.height, this.maxRows, 'rows', 'displayStart', options);
             this.addChild(this.scrollBar);
         }
 
@@ -270,3 +273,5 @@ class Table extends Element {
         }
     }
 }
+
+export default P5UI.Table;

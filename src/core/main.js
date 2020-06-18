@@ -53,7 +53,7 @@ class P5UI {
 
         this.setTheme('default');
 
-        this.cursor = new Cursor(this);
+        this.cursor = new P5UI.Cursor(this);
         this.cursors = {};
 
         let self = this;
@@ -92,14 +92,14 @@ class P5UI {
 
     addScreen(screenName, options = {}) {
         options.p5ui = this;
-        let scr = new Screen(options);
+        let scr = new P5UI.Screen(options);
         this.screens.set(screenName, scr);
         return scr;
     }
 
     addOverlay(overlayName, options = {}) {
         options.p5ui = this;
-        let overlay = new Overlay(options);
+        let overlay = new P5UI.Overlay(options);
         this.screens.set(overlayName, overlay);
         return overlay;
     }
@@ -316,3 +316,5 @@ class P5UI {
         }
     }
 }
+
+export default P5UI;

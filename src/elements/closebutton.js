@@ -1,4 +1,7 @@
-class CloseButton extends Button {
+import P5UI from '../core/main.js';
+import Button from './button.js';
+
+P5UI.CloseButton = class CloseButton extends Button {
     constructor(overlay) {
         let y = -overlay.header * 0.5;
         let x = overlay.width + y;
@@ -59,3 +62,5 @@ class CloseButton extends Button {
         line(lineDiagonal, lineDiagonal, -lineDiagonal, -lineDiagonal);
     }
 }
+
+export default P5UI.CloseButton;

@@ -1,14 +1,6 @@
-let myCursor;
+import P5UI from './main.js';
 
-const cursors = {
-    game: 'assets/cursors/game.cur',
-    default: 'default',
-    hover: 'pointer',
-    loading: 'wait',
-    text: 'text'
-}
-
-class Cursor {
+P5UI.Cursor = class Cursor {
     constructor(p5ui) {
         this.p5ui = p5ui;
 
@@ -72,3 +64,5 @@ class Cursor {
         }
     }
 }
+
+export default P5UI.Cursor;

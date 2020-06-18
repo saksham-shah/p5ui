@@ -9,7 +9,10 @@ Options:
     - scrollBarWidth (0): The width of the scroll bar (0 means no scrolling)
 */
 
-class ChatBox extends Element {
+import P5UI from '../core/main.js';
+import Element from '../core/element.js';
+
+P5UI.ChatBox = class ChatBox extends Element {
     constructor(options = {}) {
         super(options, 'chatbox');
 
@@ -35,7 +38,7 @@ class ChatBox extends Element {
                 reverseScroll: true
             };
 
-            this.scrollBar = new ScrollBar(this.height, this.maxLines, 'lines', 'displayStart', options);
+            this.scrollBar = new P5UI.ScrollBar(this.height, this.maxLines, 'lines', 'displayStart', options);
             this.addChild(this.scrollBar);
         }
         
@@ -204,3 +207,5 @@ function resizeWord(word, lineWidth) {
 
     return [partialWord, word.substring(i)];
 }
+
+export default P5UI.ChatBox;

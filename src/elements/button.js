@@ -10,7 +10,10 @@ Options:
     - onClick: callback when the button is clicked
 */
 
-class Button extends Element {
+import P5UI from '../core/main.js';
+import Element from '../core/element.js';
+
+P5UI.Button = class Button extends Element {
     constructor(options = {}) {
         super(options, 'button');
 
@@ -113,3 +116,5 @@ class Button extends Element {
         text(this.text, 0, this.tSize / 3);
     }
 }
+
+export default P5UI.Button;

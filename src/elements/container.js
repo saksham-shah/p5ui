@@ -8,7 +8,11 @@ Options:
     - header (25): the height of the header
     - padding (5): the padding of the text in the header
 */
-class Container extends Element {
+
+import P5UI from '../core/main.js';
+import Element from '../core/element.js';
+
+P5UI.Container = class Container extends Element {
     constructor(options) {
         super(options, 'container');
 
@@ -76,3 +80,5 @@ class Container extends Element {
         }
     }
 }
+
+export default P5UI.Container;

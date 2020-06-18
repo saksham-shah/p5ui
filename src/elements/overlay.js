@@ -10,7 +10,10 @@ Options:
     - onDisplay: callback when the overlay is displayed
 */
 
-class Overlay extends Element {
+import P5UI from '../core/main.js';
+import Element from '../core/element.js';
+
+P5UI.Overlay = class Overlay extends Element {
     constructor(options = {}) {
         let w = options.width || options.p5ui.width;
         let h = options.height || options.p5ui.height;
@@ -30,7 +33,7 @@ class Overlay extends Element {
 
         this.onDisplay = options.onDisplay || (() => {});
 
-        this.addChild(new CloseButton(this));
+        this.addChild(new P5UI.CloseButton(this));
     }
 
     show() {
@@ -70,3 +73,5 @@ class Overlay extends Element {
         }
     }
 }
+
+export default P5UI.Overlay;

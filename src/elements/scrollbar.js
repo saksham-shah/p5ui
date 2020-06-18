@@ -1,4 +1,7 @@
-class ScrollBar extends Element {
+import P5UI from '../core/main.js';
+import Element from '../core/element.js';
+
+P5UI.ScrollBar = class ScrollBar extends Element {
     constructor(height, maxRows, rowContents, scrollProperty, options = {}) {
         super(options, 'scrollbar');
 
@@ -165,3 +168,5 @@ class ScrollBar extends Element {
         pop();
     }
 }
+
+export default P5UI.ScrollBar;

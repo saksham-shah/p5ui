@@ -19,7 +19,10 @@ Options:
     - blurOnSubmit (true): whether the textbox should lose focus when the Enter key is pressed
 */
 
-class TextBox extends Element {
+import P5UI from '../core/main.js';
+import Element from '../core/element.js';
+
+P5UI.TextBox = class TextBox extends Element {
     constructor(options = {}) {
         super(options, 'textbox');
 
@@ -551,3 +554,5 @@ class TextBox extends Element {
         return charCode >= 97 && charCode <= 122;
     }
 }
+
+export default P5UI.TextBox;

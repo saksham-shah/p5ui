@@ -19,7 +19,9 @@ Options:
         - getCursorState(screen, state): Determines what the cursor should look like (called every frame)
 */
 
-class Element {
+import P5UI from './main.js';
+
+P5UI.Element = class Element {
     constructor(options = {}, type) {
         this.pos = options.position || { x: 0, y: 0 };
         this.p5ui = options.p5ui;
@@ -268,21 +270,21 @@ class Element {
 
     addButton(options) {
         options.p5ui = this.p5ui;
-        let element = new Button(options);
+        let element = new P5UI.Button(options);
         this.addChild(element);
         return this;
     }
 
     addContainer(options) {
         options.p5ui = this.p5ui;
-        let element = new Container(options);
+        let element = new P5UI.Container(options);
         this.addChild(element);
         return this;
     }
 
     addTextbox(options) {
         options.p5ui = this.p5ui;
-        let element = new TextBox(options);
+        let element = new P5UI.TextBox(options);
         this.addChild(element);
         this.p5ui.textboxes.push(element);
         return this;
@@ -290,15 +292,17 @@ class Element {
 
     addChatbox(options) {
         options.p5ui = this.p5ui;
-        let element = new ChatBox(options);
+        let element = new P5UI.ChatBox(options);
         this.addChild(element);
         return this;
     }
 
     addTable(options) {
         options.p5ui = this.p5ui;
-        let element = new Table(options);
+        let element = new P5UI.Table(options);
         this.addChild(element);
         return this;
     }
 }
+
+export default P5UI.Element;
