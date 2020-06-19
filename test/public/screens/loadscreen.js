@@ -1,4 +1,5 @@
 let sounds = {};
+let filter;
 const soundsToLoad = [
     {
         name: 'buttonhover',
@@ -6,6 +7,9 @@ const soundsToLoad = [
     }, {
         name: 'buttonclick',
         file: 'buttonclick.wav'
+    }, {
+        name: 'music',
+        file: 'jumpandshoot.mp3'
     }
 ];
 
@@ -14,7 +18,8 @@ let font = null;
 
 const volumes = {
     buttonhover: 1,
-    buttonclick: 0.3
+    buttonclick: 0.3,
+    music: 0.4
 }
 
 let soundsLoaded = 0;
@@ -77,7 +82,15 @@ function addLoadScreen() {
         width: 200,
         height: 100,
         textSize: 50,
-        onClick: () => setScreen('menu'),
+        onClick: () => {
+            setScreen('menu');
+            filter = new p5.LowPass();
+            filter.freq(400);
+            sounds.music.disconnect();
+            sounds.music.connect(filter);
+            sounds.music.loop();
+            filter.toggle(false);
+        },
         label: 'loading button start',
         tooltip: 'Click me to begin!',
         hidden: true

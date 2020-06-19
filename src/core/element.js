@@ -303,6 +303,20 @@ P5UI.Element = class Element {
         this.addChild(element);
         return this;
     }
+
+    addCheckbox(options) {
+        options.p5ui = this.p5ui;
+        let element = new P5UI.Checkbox(options);
+        this.addChild(element);
+        return this;
+    }
+
+    addSlider(options) {
+        options.p5ui = this.p5ui;
+        let element = new P5UI.Slider(options);
+        this.addChild(element);
+        return this;
+    }
 }
 
 export default P5UI.Element;

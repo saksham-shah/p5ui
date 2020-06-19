@@ -76,6 +76,16 @@ function addStyles() {
                 }
             }
         },
+        slider: {
+            default: {
+                line: 150,
+                circle: 200,
+                hover: {
+                    line: 110,
+                    circle: 240
+                }
+            }
+        },
         table: {
             default: {
                 fill: 200,

@@ -56,6 +56,28 @@ function addMenuScreen() {
         value: 'Good UI',
         maxLength: 0,
         label: 'other textbox'
+    })
+    .addSlider({
+        position: { x: 600, y: 150 },
+        max: 2,
+        value: 1,
+        increment: 0.02,
+        // onMove: console.log,
+        onRelease: v => {
+            for (let soundName in sounds) {
+                if (soundName != 'music') {
+                    sounds[soundName].setVolume(v * volumes[soundName]);
+                }
+            }
+            sounds.buttonclick.play();
+        }
+    })
+    .addSlider({
+        position: { x: 200, y: 150 },
+        max: 2,
+        value: 1,
+        increment: 0.02,
+        onMove: v => sounds.music.setVolume(v * volumes.music)
     });
 
     getElement('lobby chat container')
