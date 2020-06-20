@@ -25,7 +25,7 @@ function setup() {
         
         if (!noWild) {
             let newT = '';
-            for (let char of t) {
+            for (let char of t.toString()) {
                 if (char == '¦') {
                     newT += randomChars[Math.floor(Math.random() * randomChars.length)];
                 } else {

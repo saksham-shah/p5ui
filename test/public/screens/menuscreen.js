@@ -59,11 +59,12 @@ function addMenuScreen() {
     })
     .addSlider({
         position: { x: 600, y: 150 },
-        max: 2,
-        value: 1,
-        increment: 0.02,
-        // onMove: console.log,
+        max: 100,
+        value: 50,
+        // increment: 0.02,
+        textSize: 20,
         onRelease: v => {
+            v /= 50;
             for (let soundName in sounds) {
                 if (soundName != 'music') {
                     sounds[soundName].setVolume(v * volumes[soundName]);
@@ -74,10 +75,16 @@ function addMenuScreen() {
     })
     .addSlider({
         position: { x: 200, y: 150 },
-        max: 2,
-        value: 1,
-        increment: 0.02,
-        onMove: v => sounds.music.setVolume(v * volumes.music)
+        max: 100,
+        value: 50,
+        // increment: 0.02,
+        textSize: 20,
+        onMove: v => sounds.music.setVolume(v / 50 * volumes.music)
+    })
+    .addCheckbox({
+        position: { x: 700, y: 250 },
+        value: true,
+        onClick: v => filter.toggle(v)
     });
 
     getElement('lobby chat container')

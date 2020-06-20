@@ -1,14 +1,16 @@
 /*
 Options:
-    - width (300): The width of the slider on screen
-    - height (10): The thickness of the slider line
-    - radius (30): The radius of the slider circle
+    - width (300): the width of the slider on screen
+    - height (10): the thickness of the slider line
+    - radius (30): the radius of the slider circle
     - colour ('default')
 
-    - min (0): The minimum value (inclusive)
-    - max (1): The maximum value (inclusive)
-    - value (0.5 * (min + max)): The starting value
-    - increment (1): The increment that the slider goes up in
+    - textSize (0): the size of the text displaying the value (0 means no text)
+
+    - min (0): the minimum value (inclusive)
+    - max (1): the maximum value (inclusive)
+    - value (0.5 * (min + max)): the starting value
+    - increment (1): the increment that the slider goes up in
 
     - onMove: callback when the slider is moved
     - onRelease: callback when the user lets go of the slider
@@ -24,6 +26,8 @@ P5UI.Slider = class Slider extends Element {
         this.width = options.width || 300;
         this.height = options.height || 10;
         this.radius = options.radius || 20;
+
+        this.textSize = options.textSize || 0;
 
         this.min = options.min || 0;
         this.max = options.max || 1;
@@ -109,26 +113,50 @@ P5UI.Slider = class Slider extends Element {
     }
 
     show() {
+        let lineColour, circleColour, textColour;
+
         // Line
         if (this.hovered) {
-            stroke(this.getColour('line', 'hover'));
+            lineColour = this.getColour('line', 'hover');
         } else {
-            stroke(this.getColour('line'));
+            lineColour = this.getColour('line');
         }
 
-        noFill();
-        strokeWeight(this.height);
-        line(-this.width * 0.5, 0, this.width * 0.5, 0);
+        if (lineColour != -1) {
+            stroke(lineColour);
+            noFill();
+            strokeWeight(this.height);
+            line(-this.width * 0.5, 0, this.width * 0.5, 0);
+        }
 
         // Circle
         if (this.hovered) {
-            fill(this.getColour('circle', 'hover'));
+            circleColour = this.getColour('circle', 'hover');
         } else {
-            fill(this.getColour('circle'));
+            circleColour = this.getColour('circle');
         }
 
+        if (circleColour != -1) {
+            fill(circleColour);
+            noStroke();
+            ellipse(this.xPosition, 0, this.radius * 2);
+        }
+
+        // Text
+        if (this.textSize == 0) return;
+
+        if (this.hovered) {
+            textColour = this.getColour('text', 'hover');
+        } else {
+            textColour = this.getColour('text');
+        }
+
+        fill(textColour);
         noStroke();
-        ellipse(this.xPosition, 0, this.radius * 2);
+        textSize(this.textSize);
+        textAlign(CENTER);
+
+        text(this.value, this.xPosition, this.textSize / 3);
     }
 }
 

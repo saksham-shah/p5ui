@@ -20,6 +20,24 @@ function addStyles() {
                 }
             }
         },
+        checkbox: {
+            default: {
+                fill: 200,
+                stroke: 20,
+                hover: {
+                    fill: 120,
+                    stroke: 200
+                },
+                // checked: {
+                //     fill: 255,
+                //     stroke: 20
+                // },
+                // hoverchecked: {
+                //     fill: 120,
+                //     stroke: 200
+                // }
+            }
+        },
         closebutton: {
             default: {
                 fill: 75,
@@ -80,9 +98,11 @@ function addStyles() {
             default: {
                 line: 150,
                 circle: 200,
+                text: 30,
                 hover: {
                     line: 110,
-                    circle: 240
+                    circle: 240,
+                    text: 0
                 }
             }
         },

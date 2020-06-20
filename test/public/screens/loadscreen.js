@@ -89,7 +89,7 @@ function addLoadScreen() {
             sounds.music.disconnect();
             sounds.music.connect(filter);
             sounds.music.loop();
-            filter.toggle(false);
+            // filter.toggle(false);
         },
         label: 'loading button start',
         tooltip: 'Click me to begin!',
