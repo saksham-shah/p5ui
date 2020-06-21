@@ -1,7 +1,7 @@
 import P5UI from '../core/main.js';
 import Element from '../core/element.js';
 
-P5UI.ScrollBar = class ScrollBar extends Element {
+P5UI.Scrollbar = class Scrollbar extends Element {
     constructor(height, maxRows, rowContents, scrollProperty, options = {}) {
         super(options, 'scrollbar');
 
@@ -45,7 +45,7 @@ P5UI.ScrollBar = class ScrollBar extends Element {
 
             this.parent[this.scrollProperty] = newPos;
 
-            this.calculateScrollBar();
+            this.calculateScrollbar();
         }
     }
 
@@ -83,10 +83,10 @@ P5UI.ScrollBar = class ScrollBar extends Element {
             this.parent[this.scrollProperty] = numRows - rowsToDisplay;
         }
 
-        this.calculateScrollBar();
+        this.calculateScrollbar();
     }
 
-    calculateScrollBar() {
+    calculateScrollbar() {
         if (this.hidden) return;
         let numRows = this.parent[this.rowContents].length;
         if (numRows == 0) {
@@ -101,10 +101,10 @@ P5UI.ScrollBar = class ScrollBar extends Element {
         this.scrollY = this.parent[this.scrollProperty] / numRows * this.scrollDirection;
     }
 
-    toggleScrollBar(bool) {
+    toggleScrollbar(bool) {
         this.hide(bool);
         if (this.hidden) this.mousePressed = false;
-        this.calculateScrollBar();
+        this.calculateScrollbar();
     }
 
     isHovered(mousePos = this.mousePos) {
@@ -118,7 +118,7 @@ P5UI.ScrollBar = class ScrollBar extends Element {
 
     reset() {
         this.parent[this.scrollProperty] = 0;
-        this.calculateScrollBar();
+        this.calculateScrollbar();
     }
 
     changeScreen(leavingScreen) {
@@ -169,4 +169,4 @@ P5UI.ScrollBar = class ScrollBar extends Element {
     }
 }
 
-export default P5UI.ScrollBar;
+export default P5UI.Scrollbar;

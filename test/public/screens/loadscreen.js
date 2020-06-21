@@ -57,6 +57,11 @@ function addLoadScreen() {
                 if ((soundsLoaded == soundsToLoad.length) && font) {
                     loading = false;
                     getElement('loading button start').hide(false);
+
+                    setSounds({
+                        click: sounds.buttonclick,
+                        hover: sounds.buttonhover
+                    });
                 }
             }
         },

@@ -6,13 +6,13 @@ Options:
     - padding (5): text padding
     - colour ('lobby')
 
-    - scrollBarWidth (0): The width of the scroll bar (0 means no scrolling)
+    - scrollbarWidth (0): The width of the scroll bar (0 means no scrolling)
 */
 
 import P5UI from '../core/main.js';
 import Element from '../core/element.js';
 
-P5UI.ChatBox = class ChatBox extends Element {
+P5UI.Chatbox = class Chatbox extends Element {
     constructor(options = {}) {
         super(options, 'chatbox');
 
@@ -28,21 +28,21 @@ P5UI.ChatBox = class ChatBox extends Element {
         
         // this.colour = options.colour || 'lobby';
 
-        this.scrollBar = null;
-        this.scrollBarWidth = options.scrollBarWidth || 0;
-        if (this.scrollBarWidth > 0) {
+        this.scrollbar = null;
+        this.scrollbarWidth = options.scrollbarWidth || 0;
+        if (this.scrollbarWidth > 0) {
             let options = {
-                position: { x: this.width - this.scrollBarWidth, y: 0 },
+                position: { x: this.width - this.scrollbarWidth, y: 0 },
                 p5ui: this.p5ui,
-                barWidth: this.scrollBarWidth,
+                barWidth: this.scrollbarWidth,
                 reverseScroll: true
             };
 
-            this.scrollBar = new P5UI.ScrollBar(this.height, this.maxLines, 'lines', 'displayStart', options);
-            this.addChild(this.scrollBar);
+            this.scrollbar = new P5UI.Scrollbar(this.height, this.maxLines, 'lines', 'displayStart', options);
+            this.addChild(this.scrollbar);
         }
         
-        this.width -= this.scrollBarWidth;
+        this.width -= this.scrollbarWidth;
         this.textW = this.width - 2 * this.padding;
 
         this.lines = [];
@@ -55,26 +55,26 @@ P5UI.ChatBox = class ChatBox extends Element {
         for (let line of textLines) {
             this.lines.unshift({ text: line, bold: bold });
         }
-        if (this.scrollBar) this.scrollBar.scroll(-this.displayStart);
+        if (this.scrollbar) this.scrollbar.scroll(-this.displayStart);
     }
 
-    toggleScrollBar(bool) {
-        if (!this.scrollBar) return;
+    toggleScrollbar(bool) {
+        if (!this.scrollbar) return;
         this.displayStart = 0;
-        this.scrollBar.toggleScrollBar(bool);
-        this.scrollBar.calculateScrollBar();
+        this.scrollbar.toggleScrollbar(bool);
+        this.scrollbar.calculateScrollbar();
     }
 
     clear() {
         this.lines = [];
         this.displayStart = 0;
-        if (this.scrollBar) this.scrollBar.calculateScrollBar();
+        if (this.scrollbar) this.scrollbar.calculateScrollbar();
     }
 
     isHovered(mousePos = this.mousePos) {
         return mousePos.x > 0
             && mousePos.y > -this.height
-            && mousePos.x < this.width + (this.scrollBar ? this.scrollBar.barWidth : 0)
+            && mousePos.x < this.width + (this.scrollbar ? this.scrollbar.barWidth : 0)
             && mousePos.y < 0;
     }
 
@@ -208,4 +208,4 @@ function resizeWord(word, lineWidth) {
     return [partialWord, word.substring(i)];
 }
 
-export default P5UI.ChatBox;
+export default P5UI.Chatbox;

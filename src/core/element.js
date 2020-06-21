@@ -12,11 +12,11 @@ Options:
     - onDisplay: callback when the overlay is displayed
 
     - callbacks
-        - update(screen): Called every frame before the screen is drawn
-        - draw(screen): Called before the UI elements are drawn
-        - postDraw(screen): Called after the UI elements are drawn
+        - update(): Called every frame before the screen is drawn
+        - draw(): Called before the UI elements are drawn
+        - postDraw(): Called after the UI elements are drawn
         - changeScreen(leavingScreen, oldScreen, newScreen): Called when the screen changes
-        - getCursorState(screen, state): Determines what the cursor should look like (called every frame)
+        - getCursorState(state): Determines what the cursor should look like (called every frame)
 */
 
 import P5UI from './main.js';
@@ -284,7 +284,7 @@ P5UI.Element = class Element {
 
     addTextbox(options) {
         options.p5ui = this.p5ui;
-        let element = new P5UI.TextBox(options);
+        let element = new P5UI.Textbox(options);
         this.addChild(element);
         this.p5ui.textboxes.push(element);
         return this;
@@ -292,7 +292,7 @@ P5UI.Element = class Element {
 
     addChatbox(options) {
         options.p5ui = this.p5ui;
-        let element = new P5UI.ChatBox(options);
+        let element = new P5UI.Chatbox(options);
         this.addChild(element);
         return this;
     }

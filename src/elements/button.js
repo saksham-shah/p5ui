@@ -37,7 +37,7 @@ P5UI.Button = class Button extends Element {
         if (this.isHovered()) {
             if (!this.hovered) {
                 this.hovered = true;
-                sounds.buttonhover.play();
+                this.p5ui.sounds.hover.play();
             }
         } else {
             this.hovered = false;
@@ -64,7 +64,7 @@ P5UI.Button = class Button extends Element {
 
     click() {
         this.onClick(this, this.target);
-        sounds.buttonclick.play();
+        this.p5ui.sounds.click.play();
     }
 
     isHovered(mousePos = this.mousePos) {

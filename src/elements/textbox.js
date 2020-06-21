@@ -22,7 +22,7 @@ Options:
 import P5UI from '../core/main.js';
 import Element from '../core/element.js';
 
-P5UI.TextBox = class TextBox extends Element {
+P5UI.Textbox = class Textbox extends Element {
     constructor(options = {}) {
         super(options, 'textbox');
 
@@ -555,4 +555,4 @@ P5UI.TextBox = class TextBox extends Element {
     }
 }
 
-export default P5UI.TextBox;
+export default P5UI.Textbox;

@@ -9,7 +9,7 @@ Options:
     - padding (5): text padding
     - colour ('lobbies')
 
-    - scrollBarWidth (0): The width of the scroll bar (0 means no scrolling)
+    - scrollbarWidth (0): The width of the scroll bar (0 means no scrolling)
 
     - onClick: callback when an item in the table is clicked
 
@@ -37,17 +37,17 @@ P5UI.Table = class Table extends Element {
 
         // this.colour = options.colour || 'lobbies';
 
-        this.scrollBar = null;
-        this.scrollBarWidth = options.scrollBarWidth || 0;
-        if (this.scrollBarWidth > 0) {
+        this.scrollbar = null;
+        this.scrollbarWidth = options.scrollbarWidth || 0;
+        if (this.scrollbarWidth > 0) {
             let options = {
-                position: { x: this.width - this.scrollBarWidth, y: 0 },
+                position: { x: this.width - this.scrollbarWidth, y: 0 },
                 p5ui: this.p5ui,
-                barWidth: this.scrollBarWidth
+                barWidth: this.scrollbarWidth
             };
 
-            this.scrollBar = new P5UI.ScrollBar(this.height, this.maxRows, 'rows', 'displayStart', options);
-            this.addChild(this.scrollBar);
+            this.scrollbar = new P5UI.Scrollbar(this.height, this.maxRows, 'rows', 'displayStart', options);
+            this.addChild(this.scrollbar);
         }
 
         this.columnWidths = options.columnWidths || [];
@@ -57,13 +57,13 @@ P5UI.Table = class Table extends Element {
         if (this.columnData.length == 0) throw new Error('Table must have at least one column');
 
         if (this.columnWidths.length == 0) {
-            let columnWidth = (this.width - this.scrollBarWidth) / this.columnData.length;
+            let columnWidth = (this.width - this.scrollbarWidth) / this.columnData.length;
             for (let i = 0; i < this.columnData.length; i++) {
                 this.columnWidths.push(columnWidth);
             }
         }
 
-        this.width = this.scrollBarWidth;
+        this.width = this.scrollbarWidth;
         for (let i = 0; i < this.columnWidths.length; i++) {
             this.width += this.columnWidths[i];
         }
@@ -82,7 +82,7 @@ P5UI.Table = class Table extends Element {
 
             if (newHoveredRow != -1) {
                 if (this.hoveredRow != newHoveredRow) {
-                    sounds.buttonhover.play();
+                    this.p5ui.sounds.hover.play();
                 }
             }
 
@@ -104,7 +104,7 @@ P5UI.Table = class Table extends Element {
         if (this.hoveredRow == -1) return;
         if (this.hoveredRow == this.clickedRow) {
             this.onClick(this.rows[this.hoveredRow]);
-            sounds.buttonclick.play();
+            this.p5ui.sounds.click.play();
             return true;
         }
         return false;
@@ -112,13 +112,13 @@ P5UI.Table = class Table extends Element {
 
     addItem(item) {
         this.rows.push(item);
-        if (this.scrollBar) this.scrollBar.calculateScrollBar();
+        if (this.scrollbar) this.scrollbar.calculateScrollbar();
     }
 
     clear() {
         this.rows = [];
         this.displayStart = 0;
-        if (this.scrollBar) this.scrollBar.calculateScrollBar();
+        if (this.scrollbar) this.scrollbar.calculateScrollbar();
     }
 
     isHovered(mousePos = this.mousePos) {
@@ -129,7 +129,7 @@ P5UI.Table = class Table extends Element {
     }
 
     getHoveredRow(mousePos = this.mousePos) {
-        if (mousePos.x < 0 || mousePos.x > this.width - this.scrollBarWidth || mousePos.y < 0 || mousePos.y > this.height) return -1;
+        if (mousePos.x < 0 || mousePos.x > this.width - this.scrollbarWidth || mousePos.y < 0 || mousePos.y > this.height) return -1;
 
         let rowsToDisplay = Math.min(this.rows.length, this.maxRows);
         let start = this.displayStart;
@@ -195,7 +195,7 @@ P5UI.Table = class Table extends Element {
             rect(this.width * 0.5, this.height * 0.5, this.width, this.height);
         }
 
-        let w = this.width - this.scrollBarWidth;
+        let w = this.width - this.scrollbarWidth;
         let alternateColour = this.getColour('fill', 'alternate');
         if (alternateColour != -1 && alternateColour != fillColour) {
             fill(alternateColour);

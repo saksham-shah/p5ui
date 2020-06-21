@@ -1,6 +1,6 @@
 import P5UI from './main.js';
 
-const globalFunctions = ['setupUI', 'addScreen', 'getScreen', 'setScreen', 'addOverlay', 'openOverlay', 'closeOverlay', 'getActiveScreen', 'addElement', 'getElement', 'setFont', 'updateUI', 'drawUI', 'resizeUI', 'addTheme', 'setTheme'];
+const globalFunctions = ['setupUI', 'addScreen', 'getScreen', 'setScreen', 'addOverlay', 'openOverlay', 'closeOverlay', 'getActiveScreen', 'addElement', 'getElement', 'updateUI', 'drawUI', 'setFont', 'setSounds', 'resizeUI', 'addTheme', 'setTheme'];
 
 function createUI(options) {
     window.p5ui = new P5UI(options);

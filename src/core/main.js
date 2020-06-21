@@ -44,6 +44,8 @@ class P5UI {
 
         this.themes = new Map();
         this.theme = 'default';
+
+        this.sounds = {};
     }
 
     setupUI() {
@@ -160,14 +162,6 @@ class P5UI {
 
     getElement(label) {
         return this.labelledElements.get(label);
-    }
-
-    setFont(font) {
-        textFont(font);
-
-        for (let t of this.textboxes) {
-            t.clipText();
-        }
     }
 
     // questionable, need to check to see if this needs to change
@@ -287,8 +281,20 @@ class P5UI {
         this.screenPosition.y = 0.5 * (height - this.height * this.screenPosition.z);
     }
 
+    setFont(font) {
+        textFont(font);
+
+        for (let t of this.textboxes) {
+            t.clipText();
+        }
+    }
+
     setCursors(cursors) {
         this.cursors = cursors;
+    }
+
+    setSounds(sounds) {
+        this.sounds = sounds;
     }
 
     addTheme(name, styles, setTheme = false) {

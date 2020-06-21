@@ -57,7 +57,7 @@ P5UI.Slider = class Slider extends Element {
         if (this.isHovered() || this.mouseIsPressed) {
             if (!this.hovered) {
                 this.hovered = true;
-                sounds.buttonhover.play();
+                this.p5ui.sounds.hover.play();
             }
         } else {
             this.hovered = false;

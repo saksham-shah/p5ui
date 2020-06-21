@@ -28,7 +28,7 @@ P5UI.Checkbox = class Checkbox extends Element {
         if (this.isHovered()) {
             if (!this.hovered) {
                 this.hovered = true;
-                sounds.buttonhover.play();
+                this.p5ui.sounds.hover.play();
             }
         } else {
             this.hovered = false;
@@ -44,7 +44,7 @@ P5UI.Checkbox = class Checkbox extends Element {
         if (this.hovered) {
             this.value = !this.value;
             this.onClick(this.value);
-            sounds.buttonclick.play();
+            this.p5ui.sounds.click.play();
         }
     }
 

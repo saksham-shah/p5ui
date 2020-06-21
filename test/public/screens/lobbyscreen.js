@@ -1,7 +1,28 @@
+let showText = false;
+
 function addLobbyScreen() {
+    let showY = 30;
+    let hideY = -5;
+    let y = hideY;
     
-    
-    addScreen('lobbies')
+    addScreen('lobbies', {
+        draw: () => {
+            fill(255);
+            noStroke();
+            textSize(25);
+            textAlign(CENTER);
+
+            text("Press ESC to open menu", 450, y);
+
+            let mouseY = getScreen('lobbies').mousePos.y;
+
+            if (mouseY < 50) {
+                if (y < showY) y += 7
+            } else {
+                if (y > hideY) y -= 7
+            }
+        }
+    })
     .addButton({
         position: { x: 175, y: 440 },
         width: 250,
@@ -23,7 +44,7 @@ function addLobbyScreen() {
         width: 810,
         height: 300,
         rowHeight: 30,
-        scrollBarWidth: 10,
+        scrollbarWidth: 10,
         columnWidths: [350, 100, 250, 100],
         columnTitles: ['Name', 'Players', 'Mode', 'Password'],
         columnData: ['name', 'players', 'mode', 'password'],

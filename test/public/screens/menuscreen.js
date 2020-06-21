@@ -112,7 +112,7 @@ function addMenuScreen() {
         height: 220,
         lineHeight: 22,
         style: 'chatbox',
-        scrollBarWidth: 10,
+        scrollbarWidth: 10,
         label: 'lobby chat output'
     });
 }
