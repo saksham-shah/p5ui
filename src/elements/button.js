@@ -97,7 +97,7 @@ P5UI.Button = class Button extends Element {
 
         if (strokeColour != -1) {
             stroke(strokeColour);
-            strokeWeight(2);
+            strokeWeight(1);
         } else {
             noStroke();
         }
@@ -113,7 +113,10 @@ P5UI.Button = class Button extends Element {
             fill(this.getColour('text'));
         }
         noStroke();
-        text(this.text, 0, this.tSize / 3);
+
+        let t = this.text;
+        if (t instanceof Function) t = t(this, this.target);
+        text(t, 0, this.tSize / 3);
     }
 }
 

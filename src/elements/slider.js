@@ -36,7 +36,7 @@ P5UI.Slider = class Slider extends Element {
             console.error(`Slider: max value (${this.max}) is less than min value (${this.min}).`);
         }
 
-        this.value = options.value || (this.max + this.min) / 2;
+        this.value = options.value == undefined ? (this.max + this.min) / 2 : options.value;
         if (this.value < this.min) this.value = this.min;
         if (this.value > this.max) this.value = this.max;
 
@@ -44,6 +44,7 @@ P5UI.Slider = class Slider extends Element {
         // this.xPosition = this.valueToCoordinate(this.value);
 
         this.increment = options.increment || 1;
+        this.scrollSpeed = options.scrollSpeed || this.increment;
 
         this.onMove = options.onMove || (() => {});
         this.onRelease = options.onRelease || (() => {});
@@ -97,6 +98,20 @@ P5UI.Slider = class Slider extends Element {
         if (this.mouseIsPressed) {
             this.mouseIsPressed = false;
             this.onRelease(this.value);
+        }
+    }
+
+    mouseWheel(e) {
+        if (this.mouseIsPressed || !this.isHovered()) return;
+        let value = this.value - e.deltaY * this.scrollSpeed / 100;
+
+        if (value < this.min) value = this.min;
+        if (value > this.max) value = this.max;
+
+        if (this.value != value) {
+            this.value = value;
+            this.calculateXPosition();
+            this.onMove(this.value);
         }
     }
 

@@ -78,13 +78,13 @@ P5UI.Chatbox = class Chatbox extends Element {
             && mousePos.y < 0;
     }
 
-    changeScreen(leavingScreen) {
-        if (leavingScreen) {
-            this.hide(true);
-        } else {
-            this.hide(false);
-        }
-    }
+    // changeScreen(leavingScreen) {
+    //     if (leavingScreen) {
+    //         this.hide(true);
+    //     } else {
+    //         this.hide(false);
+    //     }
+    // }
 
     show() {
         let linesToDisplay = Math.min(this.lines.length, this.maxLines);

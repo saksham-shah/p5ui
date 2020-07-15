@@ -33,11 +33,32 @@ P5UI.Overlay = class Overlay extends Element {
 
         this.onDisplay = options.onDisplay || (() => {});
 
-        this.addChild(new P5UI.CloseButton(this));
+        if (this.text.length > 0) {
+            this.addChild(new P5UI.CloseButton(this));
+        }
     }
 
     show() {
         if (this.drawBox) {
+            // let fillColour = this.getColour('fill');
+            // if (fillColour != -1) {
+            //     fill(fillColour);
+            // } else {
+            //     noFill();
+            // }
+
+            // let strokeColour = this.getColour('stroke');
+            // if (strokeColour != -1) {
+            //     stroke(strokeColour);
+            //     strokeWeight(1);
+            // } else {
+            //     noStroke();
+            // }
+
+            // rect(this.width * 0.5, this.height * 0.5, this.width, this.height);
+        }
+
+        if (this.text.length > 0) {
             let fillColour = this.getColour('fill');
             if (fillColour != -1) {
                 fill(fillColour);
@@ -45,18 +66,16 @@ P5UI.Overlay = class Overlay extends Element {
                 noFill();
             }
 
-            let strokeColour = this.getColour('stroke');
-            if (strokeColour != -1) {
-                stroke(strokeColour);
-                strokeWeight(1);
-            } else {
+            // let strokeColour = this.getColour('stroke');
+            // if (strokeColour != -1) {
+            //     stroke(strokeColour);
+            //     strokeWeight(1);
+            // } else {
                 noStroke();
-            }
+            // }
 
             rect(this.width * 0.5, this.height * 0.5, this.width, this.height);
-        }
 
-        if (this.text.length > 0) {
             let headerColour = this.getColour('header');
             if (headerColour != -1) {
                 fill(headerColour);
@@ -70,6 +89,28 @@ P5UI.Overlay = class Overlay extends Element {
             fill(this.getColour('text'));
 
             text(this.text, this.width * 0.5, - this.header * 0.5 + this.textSize / 3);
+        }
+    }
+
+    postShow() {
+        if (this.text.length > 0) {
+            noFill();
+            let strokeColour = this.getColour('stroke');
+            if (strokeColour != -1) {
+                stroke(strokeColour);
+                strokeWeight(1);
+            } else {
+                noStroke();
+            }
+
+            rect(this.width * 0.5, this.height * 0.5, this.width, this.height);
+
+            let headerColour = this.getColour('header');
+            if (headerColour != -1) {
+            //     fill(headerColour);
+
+                rect(this.width * 0.5, -this.header * 0.5, this.width, this.header);
+            }
         }
     }
 }

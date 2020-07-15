@@ -69,6 +69,10 @@ P5UI.Table = class Table extends Element {
         }
 
         this.onClick = options.onClick || (() => {});
+        this.hasClick = true;
+        if (options.onClick == undefined) {
+            this.hasClick = false;
+        }
         
         this.rows = [];
 
@@ -77,7 +81,7 @@ P5UI.Table = class Table extends Element {
     }
 
     update() {
-        if (this.onClick != undefined) {
+        if (this.hasClick) {
             let newHoveredRow = this.getHoveredRow();
 
             if (newHoveredRow != -1) {
@@ -241,6 +245,7 @@ P5UI.Table = class Table extends Element {
                 }
 
                 let t = this.rows[i][this.columnData[j]];
+                if (t instanceof Function) t = t(this.rows[i]);
                 if (textWidth(t) > this.columnWidths[j] - 2 * this.padding) {
                     let numChars = Math.floor((this.columnWidths[j] - 2 * this.padding) / textWidth(' ')) - 3;
                     t = t.substring(0, numChars) + '...';

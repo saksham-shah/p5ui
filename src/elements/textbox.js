@@ -233,46 +233,48 @@ P5UI.Textbox = class Textbox extends Element {
                     this.selectedText = [0, this.value.length];
                     this.selectionStart = 0;
 
-                } else if (e.key.toLowerCase() == 'c') {
-                    let textToCopy = this.value;
-                    if (this.selectionStart != this.cursorPos) {
-                        textToCopy = this.value.substring(this.selectionStart, this.cursorPos);
-                    }
-                    navigator.clipboard.writeText(textToCopy);
-
-                } else if (e.key.toLowerCase() == 'v') {
-                    if (this.selectionStart != this.cursorPos) this.removeSelected();
-                    this.pasting = true;
-                    navigator.clipboard.readText().then(copiedText => {
-                        let textToPaste = '';
-                        let maxPasteLength = this.maxLength - this.value.length;
-                        for (let char of copiedText) {
-                            if (this.maxLength > 0 && textToPaste.length >= maxPasteLength) continue;
-                            if (char == '\n') {
-                                textToPaste += ' ';
-                            } else {
-                                textToPaste += char;
-                            }
+                } else if (navigator.clipboard != undefined) {
+                    if (e.key.toLowerCase() == 'c') {
+                        let textToCopy = this.value;
+                        if (this.selectionStart != this.cursorPos) {
+                            textToCopy = this.value.substring(this.selectionStart, this.cursorPos);
                         }
-                        this.value = this.value.substring(0, this.cursorPos) + textToPaste + this.value.substring(this.cursorPos, this.value.length);
-                        this.cursorPos += textToPaste.length;
-                        this.selectionStart = this.cursorPos;
-                        this.clipText(true);
-                        this.pasting = false;
-                    });
-
-                } else if (e.key.toLowerCase() == 'x') {
-                    let textToCopy = this.value;
-                    if (this.selectionStart != this.cursorPos) {
-                        textToCopy = this.value.substring(this.selectionStart, this.cursorPos);
-                        this.removeSelected(true);
-                    } else {
-                        this.value = '';
-                        this.cursorPos = 0;
-                        this.selectionStart = this.cursorPos;
-                        this.clipText(true);
+                        navigator.clipboard.writeText(textToCopy);
+    
+                    } else if (e.key.toLowerCase() == 'v') {
+                        if (this.selectionStart != this.cursorPos) this.removeSelected();
+                        this.pasting = true;
+                        navigator.clipboard.readText().then(copiedText => {
+                            let textToPaste = '';
+                            let maxPasteLength = this.maxLength - this.value.length;
+                            for (let char of copiedText) {
+                                if (this.maxLength > 0 && textToPaste.length >= maxPasteLength) continue;
+                                if (char == '\n') {
+                                    textToPaste += ' ';
+                                } else {
+                                    textToPaste += char;
+                                }
+                            }
+                            this.value = this.value.substring(0, this.cursorPos) + textToPaste + this.value.substring(this.cursorPos, this.value.length);
+                            this.cursorPos += textToPaste.length;
+                            this.selectionStart = this.cursorPos;
+                            this.clipText(true);
+                            this.pasting = false;
+                        });
+    
+                    } else if (e.key.toLowerCase() == 'x') {
+                        let textToCopy = this.value;
+                        if (this.selectionStart != this.cursorPos) {
+                            textToCopy = this.value.substring(this.selectionStart, this.cursorPos);
+                            this.removeSelected(true);
+                        } else {
+                            this.value = '';
+                            this.cursorPos = 0;
+                            this.selectionStart = this.cursorPos;
+                            this.clipText(true);
+                        }
+                        navigator.clipboard.writeText(textToCopy);
                     }
-                    navigator.clipboard.writeText(textToCopy);
                 }
             }
         }

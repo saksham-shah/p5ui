@@ -45,6 +45,7 @@ class P5UI {
         this.themes = new Map();
         this.theme = 'default';
 
+        this.cursors = {};
         this.sounds = {};
     }
 
@@ -56,7 +57,6 @@ class P5UI {
         this.setTheme('default');
 
         this.cursor = new P5UI.Cursor(this);
-        this.cursors = {};
 
         let self = this;
 
@@ -83,8 +83,13 @@ class P5UI {
         }
         
         window.keyPressed = e => {
-            self.getActiveScreen().emit('keyDown', e);
-            self.cursor.showTooltip = false;
+            if (e.key == 'Escape' && this.overlays.length > 0) {
+                this.closeOverlay();
+                                
+            } else {
+                self.getActiveScreen().emit('keyDown', e);
+                self.cursor.showTooltip = false;
+            }
         }
         
         window.keyReleased = e => {
@@ -135,10 +140,13 @@ class P5UI {
             return;
         }
 
+        let oldScr = this.getActiveScreen();
         this.overlays.push(o);
+        
+        oldScr._changeScreen(true, oldScr, o);
+        o._changeScreen(false, oldScr, o);
+
         o.onDisplay(...args);
-        this.screen._changeScreen(true, this.screen, o);
-        o._changeScreen(false, this.screen, o);
     }
 
     closeOverlay() {
@@ -148,6 +156,12 @@ class P5UI {
     
             o._changeScreen(true, o, newScr);
             newScr._changeScreen(false, o, newScr);
+        }
+    }
+
+    closeAllOverlays() {
+        while (this.overlays.length > 0) {
+            this.closeOverlay();
         }
     }
 
@@ -219,7 +233,7 @@ class P5UI {
             rect(width - this.screenPosition.x * 0.5, height * 0.5, this.screenPosition.x, height);
         }
 
-        if (this.cursor.timeSinceMovement > 30) {
+        if (this.cursor.timeSinceMovement > 20) {
             let tooltip = this.getActiveScreen().getTooltip();
             if (tooltip.length > 0) {
                 this.drawTooltip(tooltip);

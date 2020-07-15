@@ -12,7 +12,7 @@ webpack([{
     },
     plugins: [
         new webpack.BannerPlugin({
-            banner: 'p5ui.js - By Saksham Shah\n'
+            banner: 'p5ui.js pre-v1.0.0 July 15, 2020 - by Saksham Shah'
         })
     ]
 }, {
@@ -23,7 +23,7 @@ webpack([{
     },
     plugins: [
         new webpack.BannerPlugin({
-            banner: 'p5ui.min.js - By Saksham Shah\n'
+            banner: 'p5ui.js pre-v1.0.0 July 15, 2020 - by Saksham Shah\n'
         })
     ]
 }], (err, stats) => {
