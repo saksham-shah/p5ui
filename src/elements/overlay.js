@@ -7,27 +7,27 @@ Options:
     - text (''): the text displayed on the button
     - drawBox (true): whether to draw the actual rectangle
 
-    - onDisplay: callback when the overlay is displayed
+    - onDisplay: callback when the popup is displayed
 */
 
 import P5UI from '../core/main.js';
 import Element from '../core/element.js';
 
-P5UI.Overlay = class Overlay extends Element {
+P5UI.Popup = class Popup extends Element {
     constructor(options = {}) {
         let w = options.width || options.p5ui.width;
         let h = options.height || options.p5ui.height;
         options.position = { x: (options.p5ui.width - w) * 0.5, y: (options.p5ui.height - h) * 0.5 };
         
-        super(options, 'overlay');
+        super(options, 'popup');
 
         this.width = w;
         this.height = h;
         this.text = options.text || '';
         this.drawBox = options.drawBox == false ? false : true;
 
-        this.header = this.p5ui.overlayHeader;
-        this.textSize = this.header - 2 * this.p5ui.overlayPadding;
+        this.header = this.p5ui.popupHeader;
+        this.textSize = this.header - 2 * this.p5ui.popupPadding;
 
         // this.colour = options.colour || 'default';
 
@@ -115,4 +115,4 @@ P5UI.Overlay = class Overlay extends Element {
     }
 }
 
-export default P5UI.Overlay;
+export default P5UI.Popup;

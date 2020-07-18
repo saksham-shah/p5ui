@@ -2,16 +2,16 @@ import P5UI from '../core/main.js';
 import Button from './button.js';
 
 P5UI.CloseButton = class CloseButton extends Button {
-    constructor(overlay) {
-        let y = -overlay.header * 0.5;
-        let x = overlay.width + y;
+    constructor(popup) {
+        let y = -popup.header * 0.5;
+        let x = popup.width + y;
 
         let options = {
             position: { x, y },
-            p5ui: overlay.p5ui,
-            width: overlay.textSize,
-            height: overlay.textSize,
-            onClick: () => overlay.p5ui.closeOverlay()
+            p5ui: popup.p5ui,
+            width: popup.textSize,
+            height: popup.textSize,
+            onClick: () => popup.p5ui.closePopup()
         }
 
         super(options);

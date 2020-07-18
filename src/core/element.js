@@ -9,7 +9,7 @@ Options:
     - text (''): the text displayed on the button
     - drawBox (true): Whether to draw the actual rectangle
 
-    - onDisplay: callback when the overlay is displayed
+    - onDisplay: callback when the popup is displayed
 
     - callbacks
         - update(): Called every frame before the screen is drawn

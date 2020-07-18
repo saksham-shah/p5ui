@@ -7,8 +7,8 @@ Options:
     They are just reference values to allow you to size all of the elements appropriately.
     It is recommended to use values with many factors so you can easily divide the screen as needed.
 
-    - overlayHeader(30): the height of the header bar in overlays
-    - overlayPadding (5): the padding of the header bar in overlays
+    - popupHeader(30): the height of the header bar in popups
+    - popupPadding (5): the padding of the header bar in popups
 
     - tooltipHeight (25): the height of tooltips
     - tooltipPadding (5): the padding of tooltip text
@@ -26,15 +26,15 @@ class P5UI {
         this.height = options.height || 600;
         this.buffer = options.buffer || 0.9;
 
-        this.overlayHeader = options.overlayHeader || 30;
-        this.overlayPadding = options.overlayPadding || 5;
+        this.popupHeader = options.popupHeader || 30;
+        this.popupPadding = options.popupPadding || 5;
 
         this.tooltipHeight = options.tooltipHeight || 25;
         this.tooltipPadding = options.tooltipPadding || 5;
         this.tooltipTextSize = this.tooltipHeight - 2 * this.tooltipPadding;
 
         this.screen = null;
-        this.overlays = [];
+        this.popups = [];
 
         this.screens = new Map();
 
@@ -83,8 +83,8 @@ class P5UI {
         }
         
         window.keyPressed = e => {
-            if (e.key == 'Escape' && this.overlays.length > 0) {
-                this.closeOverlay();
+            if (e.key == 'Escape' && this.popups.length > 0) {
+                this.closePopup();
                                 
             } else {
                 self.getActiveScreen().emit('keyDown', e);
@@ -104,11 +104,11 @@ class P5UI {
         return scr;
     }
 
-    addOverlay(overlayName, options = {}) {
+    addPopup(popupName, options = {}) {
         options.p5ui = this;
-        let overlay = new P5UI.Overlay(options);
-        this.screens.set(overlayName, overlay);
-        return overlay;
+        let popup = new P5UI.Popup(options);
+        this.screens.set(popupName, popup);
+        return popup;
     }
 
     getScreen(screenName) {
@@ -133,15 +133,15 @@ class P5UI {
         return newScr;
     }
 
-    openOverlay(overlayName, ...args) {
-        let o = this.getScreen(overlayName);
+    openPopup(popupName, ...args) {
+        let o = this.getScreen(popupName);
         if (o == undefined) {
-            console.warn(` Failed to open overlay - '${overlayName}' does not exist.`)
+            console.warn(` Failed to open popup - '${popupName}' does not exist.`)
             return;
         }
 
         let oldScr = this.getActiveScreen();
-        this.overlays.push(o);
+        this.popups.push(o);
         
         oldScr._changeScreen(true, oldScr, o);
         o._changeScreen(false, oldScr, o);
@@ -149,9 +149,9 @@ class P5UI {
         o.onDisplay(...args);
     }
 
-    closeOverlay() {
-        if (this.overlays.length > 0) {
-            let o = this.overlays.pop();
+    closePopup() {
+        if (this.popups.length > 0) {
+            let o = this.popups.pop();
             let newScr = this.getActiveScreen();
     
             o._changeScreen(true, o, newScr);
@@ -159,15 +159,15 @@ class P5UI {
         }
     }
 
-    closeAllOverlays() {
-        while (this.overlays.length > 0) {
-            this.closeOverlay();
+    closeAllPopups() {
+        while (this.popups.length > 0) {
+            this.closePopup();
         }
     }
 
     getActiveScreen() {
-        if (this.overlays.length == 0) return this.screen;
-        return this.overlays[this.overlays.length - 1];
+        if (this.popups.length == 0) return this.screen;
+        return this.popups[this.popups.length - 1];
     }
 
     addElement(element, label) {
@@ -200,17 +200,17 @@ class P5UI {
         // Draw all the stuff
         this.screen._show();
 
-        if (this.overlays.length > 0) {
+        if (this.popups.length > 0) {
             noStroke();
-            let overlay = this.overlays[this.overlays.length - 1];
+            let popup = this.popups[this.popups.length - 1];
 
-            let backgroundColour = overlay.getColour('background')
+            let backgroundColour = popup.getColour('background')
             if (backgroundColour != -1) {
                 fill(backgroundColour);
                 rect(this.width * 0.5, this.height * 0.5, this.width, this.height);
             }
 
-            overlay._show();
+            popup._show();
         }
 
         let strokeColour = this.screen.getColour('stroke');
