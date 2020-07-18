@@ -55,6 +55,10 @@ P5UI.Checkbox = class Checkbox extends Element {
             && mousePos.y < this.size * 0.5;
     }
 
+    setValue(value) {
+        this.value = value;
+    }
+
     show() {
         const colour = {
             fill: 255,

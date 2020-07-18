@@ -28,6 +28,7 @@ P5UI.Element = class Element {
         this.type = type;
 
         this.hidden = options.hidden == undefined ? false : options.hidden;
+        this.disabled = options.disabled == undefined ? this.hidden : options.disabled;
 
         this.parent = null;
         this.children = [];
@@ -52,7 +53,7 @@ P5UI.Element = class Element {
     }
 
     emit(eventName, e) {
-        if (this.hidden) return;
+        if (this.disabled) return;
 
         for (let element of this.children) {
             element.emit(eventName, e);
@@ -72,11 +73,27 @@ P5UI.Element = class Element {
         return this;
     }
 
-    hide(hidden) {
+    hide(hidden, disabled) {
         if (hidden != undefined) {
             this.hidden = hidden;
         } else {
             this.hidden = !this.hidden;
+        }
+
+        if (disabled != undefined) {
+            this.disable(disabled);
+        } else {
+            this.disable(this.hidden);
+        }
+
+        return this;
+    }
+
+    disable(disabled) {
+        if (disabled != undefined) {
+            this.disabled = disabled;
+        } else {
+            this.disabled = !this.disabled;
         }
 
         return this;
@@ -102,8 +119,6 @@ P5UI.Element = class Element {
 
     // update
     _update(mousePos) {
-        if (this.hidden) return;
-
         if (this.pos.x != 0 || this.pos.y != 0) {
             this.mousePos = {
                 x: mousePos.x - this.pos.x,
@@ -112,6 +127,8 @@ P5UI.Element = class Element {
         } else {
             this.mousePos = mousePos;
         }
+
+        if (this.disabled) return;
 
         for (let element of this.children) {
             element._update(this.mousePos);
@@ -130,7 +147,7 @@ P5UI.Element = class Element {
 
     // cursor state
     _getCursorState() {
-        if (this.hidden) return;
+        if (this.disabled) return;
         let state;
 
         for (let element of this.children) {

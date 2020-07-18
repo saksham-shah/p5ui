@@ -70,14 +70,16 @@ P5UI.Slider = class Slider extends Element {
             let value = percent * (this.max - this.min) + this.min;
             value = Math.round(value / this.increment) * this.increment;
 
-            if (value < this.min) value = this.min;
-            if (value > this.max) value = this.max;
+            this.setValue(value);
 
-            if (this.value != value) {
-                this.value = value;
-                this.calculateXPosition();
-                this.onMove(this.value);
-            }
+            // if (value < this.min) value = this.min;
+            // if (value > this.max) value = this.max;
+
+            // if (this.value != value) {
+            //     this.value = value;
+            //     this.calculateXPosition();
+            //     this.onMove(this.value);
+            // }
         }
     }
 
@@ -98,6 +100,7 @@ P5UI.Slider = class Slider extends Element {
         if (this.mouseIsPressed) {
             this.mouseIsPressed = false;
             this.onRelease(this.value);
+            this.p5ui.sounds.click.play();
         }
     }
 
@@ -105,14 +108,16 @@ P5UI.Slider = class Slider extends Element {
         if (this.mouseIsPressed || !this.isHovered()) return;
         let value = this.value - e.deltaY * this.scrollSpeed / 100;
 
-        if (value < this.min) value = this.min;
-        if (value > this.max) value = this.max;
+        this.setValue(value);
 
-        if (this.value != value) {
-            this.value = value;
-            this.calculateXPosition();
-            this.onMove(this.value);
-        }
+        // if (value < this.min) value = this.min;
+        // if (value > this.max) value = this.max;
+
+        // if (this.value != value) {
+        //     this.value = value;
+        //     this.calculateXPosition();
+        //     this.onMove(this.value);
+        // }
     }
 
     isHovered(mousePos = this.mousePos) {
@@ -125,6 +130,17 @@ P5UI.Slider = class Slider extends Element {
     calculateXPosition() {
         let percent = (this.value - this.min) / (this.max - this.min);
         this.xPosition = this.width * (percent - 0.5);
+    }
+
+    setValue(value) {
+        if (value < this.min) value = this.min;
+        if (value > this.max) value = this.max;
+
+        if (this.value != value) {
+            this.value = value;
+            this.calculateXPosition();
+            this.onMove(this.value);
+        }
     }
 
     show() {

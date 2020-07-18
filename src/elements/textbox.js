@@ -58,9 +58,9 @@ P5UI.Textbox = class Textbox extends Element {
         this.visibleTextWidth = 0;
         this.fixedLeft = true;
 
-        this.selection = false;
-        this.selectedText = [0, 0];
-        this.selectionAnchor = 0;
+        // this.selection = false;
+        // this.selectedText = [0, 0];
+        // this.selectionAnchor = 0;
         this.selectionStart = this.cursorPos;
 
         this.mousePressed = false;
@@ -84,15 +84,15 @@ P5UI.Textbox = class Textbox extends Element {
             if (this.mousePressed) {
                 let currentPos = this.clickPos(this.mousePos);
     
-                if (!this.selection) {
-                    if (currentPos != this.selectionAnchor) {
-                        this.selection = true;
-                        this.selectedText[0] = this.selectionAnchor;
-                        this.selectedText[1] = currentPos;
-                    }
-                }
+                // if (!this.selection) {
+                //     if (currentPos != this.selectionAnchor) {
+                //         this.selection = true;
+                //         this.selectedText[0] = this.selectionAnchor;
+                //         this.selectedText[1] = currentPos;
+                //     }
+                // }
     
-                this.moveCursor(currentPos - this.cursorPos, this.shiftPressed || this.selection);
+                this.moveCursor(currentPos - this.cursorPos);//, this.shiftPressed || this.selection);
             }
         }
     }
@@ -107,7 +107,7 @@ P5UI.Textbox = class Textbox extends Element {
                 this.focus();
                 this.cursorPos = this.clickPos(this.mousePos);
                 this.clipText();
-                this.selection = false;
+                // this.selection = false;
                 this.selectionStart = this.cursorPos;
             }
         } else {
@@ -117,8 +117,8 @@ P5UI.Textbox = class Textbox extends Element {
         if (!this.focused) return;
         this.mousePressed = true;
         if (!this.shiftPressed) {
-            this.selection = false;
-            this.selectionAnchor = this.clickPos(this.mousePos);
+            // this.selection = false;
+            // this.selectionAnchor = this.clickPos(this.mousePos);
             this.selectionStart = this.clickPos(this.mousePos);
         }
     }
@@ -301,22 +301,22 @@ P5UI.Textbox = class Textbox extends Element {
             this.selectionStart = this.cursorPos;
         }
 
-        if (select) {
-            if (offset != 0) {
-                if (this.selection) {
-                    this.selectedText[1] = this.cursorPos;
-                    if (this.selectedText[0] == this.selectedText[1]) {
-                        this.selection = false;
-                    }
-                } else {
-                    this.selection = true;
-                    this.selectedText[0] = this.cursorPos - offset;
-                    this.selectedText[1] = this.cursorPos;
-                }
-            }
-        } else {
-            this.selection = false;
-        }
+        // if (select) {
+        //     if (offset != 0) {
+        //         if (this.selection) {
+        //             this.selectedText[1] = this.cursorPos;
+        //             if (this.selectedText[0] == this.selectedText[1]) {
+        //                 this.selection = false;
+        //             }
+        //         } else {
+        //             this.selection = true;
+        //             this.selectedText[0] = this.cursorPos - offset;
+        //             this.selectedText[1] = this.cursorPos;
+        //         }
+        //     }
+        // } else {
+        //     this.selection = false;
+        // }
     }
 
     removeSelected(fixLeft) {
@@ -443,14 +443,25 @@ P5UI.Textbox = class Textbox extends Element {
             && mousePos.y < 0
     }
 
-    clear() {
-        this.value = '';
+    setValue(value = '') {
+        if (this.maxLength > 0) value = value.substr(0, this.maxLength);
         this.timeSinceMoved = 0;
-        this.cursorPos = 0;
-        this.selection = false;
-        this.selectionStart = this.cursorPos;
-        
+        this.value = value;
+        this.cursorPos = value.length;
+        this.selectionStart = value.length;
+
         this.clipText();
+    }
+
+    clear() {
+        this.setValue();
+        // this.value = '';
+        // this.timeSinceMoved = 0;
+        // this.cursorPos = 0;
+        // this.selection = false;
+        // this.selectionStart = this.cursorPos;
+        
+        // this.clipText();
     }
 
     focus() {
