@@ -288,7 +288,7 @@ class P5UI {
         if (screenRatio > desiredRatio) {
             this.screenPosition.z = height / this.height * this.buffer;
         } else {
-            this.screenPosition.z = width / this.width * buffer;
+            this.screenPosition.z = width / this.width * this.buffer;
         }
 
         this.screenPosition.x = 0.5 * (width - this.width * this.screenPosition.z);

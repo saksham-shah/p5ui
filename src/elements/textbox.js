@@ -130,13 +130,13 @@ P5UI.Textbox = class Textbox extends Element {
     keyType(e) {
         if (!this.focused) return;
         this.keyQueue.push(e);
+        this.mousePressed = false;
     }
 
     keyDown(e) {
         if (e.key == 'Shift') {
             this.shiftPressed = true;
         }
-        this.mousePressed = false;
     }
 
     keyUp(e) {
